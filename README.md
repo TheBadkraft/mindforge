@@ -1,6 +1,6 @@
 # MindForge: The Codex of Sigma
 
-**The Legend of the Codex of Sigma**
+**The Legend of the Codex of Sigma**  
 In the mystic land of Avalon, where the veil between the old world and the new is thin, Merlin, the legendary wizard, penned the **Codex of Sigma**. This was not a mere book but a grimoire of arcane knowledge, holding the essence of all languages of computation. Merlin's intent was to craft a language that could evolve with humanity, understanding the patterns of thought and logic that would guide future generations.
 
 However, the Codex was scattered during the turbulent times of Camelot, its pages lost to history. Centuries later, Dennis Ritchie, while wandering through the remnants of Avalon, discovered fragments of this ancient text. These fragments inspired him to create the C language, but he knew it was only a part of Merlin's vision.
