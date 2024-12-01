@@ -21,3 +21,5 @@ The **MindForge** was thus established as a modern-day workshop where developers
 - The website could mimic an ancient workshop, with elements like:
   - An interactive forge where visitors can "craft" their own language features.
   - A virtual library where one can browse through the pages of the Codex, with animations that make it
+
+Toolchain: [The MindForge](info/toochain.themindforge.md)
