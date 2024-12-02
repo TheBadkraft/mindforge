@@ -1,3 +1,5 @@
+using MindForge.Library;
+
 namespace MindForge.Codex;
 
 /// <summary>
@@ -25,7 +27,7 @@ public unsafe class CodexParser
             var codex = File.ReadAllText(filePath);
             return ParseCodexRules(codex);
         }
-        catch (IOException ex)
+        catch (IOException)
         {
             //  TODO: error handling
             return null;
@@ -45,7 +47,7 @@ public unsafe class CodexParser
 
         RuleSet ruleSet = new();
         IndexContent(content);
-        ReadeCompatibilityIdentifier(ruleSet);
+        ReadCompatibilityIdentifier(ruleSet);
         ReadHeader(ruleSet);
 
         //  Parse rules
@@ -109,7 +111,7 @@ public unsafe class CodexParser
         }
     }
 
-    private void ReadeCompatibilityIdentifier(RuleSet ruleSet)
+    private void ReadCompatibilityIdentifier(RuleSet ruleSet)
     {
         if (indexStack.TryPeek(out Index headerLine) && IsHeader(headerLine))
         {
@@ -156,12 +158,12 @@ public unsafe class CodexParser
 
     private bool IsCommentOrEmpty(Index index)
     {
-        return (index[0] == '@' && index[1] == '@') || index[0] == '\n';
+        return (index[0] == '#' && index[1] == '#') || index[0] == '\n';
     }
 
     private bool ParseRule(Index index, RuleSet ruleSet)
     {
-        //  TODO: Implment actual rule parsing ligic here.
+        //  TODO: Implement actual rule parsing logic here.
         //  All Index objects are singhle words, not a full line.
         //  Remember to pop off all indexes on stack until we reach '\n'
         while (indexStack.TryPop(out index))

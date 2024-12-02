@@ -1,7 +1,5 @@
 
-using System.Data;
-
-namespace MindForge.Codex;
+namespace MindForge.Library;
 
 public class RuleSet
 {
@@ -12,6 +10,6 @@ public class RuleSet
 
     internal void Validate(string identifier)
     {
-        IsCompatible = TC_COMPATIBILITY.Equals(identifier);
+        IsCompatible = TC_COMPATIBILITY.Equals(identifier, StringComparison.Ordinal);
     }
 }
