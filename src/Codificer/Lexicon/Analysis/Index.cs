@@ -1,5 +1,5 @@
 
-namespace MindForge.Codex;
+namespace MindForge.Codificer.Lexicon.Analysis;
 
 /// <summary>
 /// Represents an index into a character array (<see cref="string"/>), 

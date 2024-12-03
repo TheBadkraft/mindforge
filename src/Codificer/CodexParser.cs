@@ -1,6 +1,8 @@
-using MindForge.Library;
+using MindForge.Codificer.Lexicon.Grammar;
+using MindForge.Codificer.Lexicon.Analysis;
+using Index = MindForge.Codificer.Lexicon.Analysis.Index;
 
-namespace MindForge.Codex;
+namespace MindForge.Codificer;
 
 /// <summary>
 /// Parses language definitions from a Codex file creating a 

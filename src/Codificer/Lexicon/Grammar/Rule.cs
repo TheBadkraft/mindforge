@@ -1,7 +1,5 @@
 
-using MindForge.Lexicon;
-
-namespace MindForge.Library;
+namespace MindForge.Codificer.Lexicon.Grammar;
 
 /// <summary>
 /// Base class for all grammar rules used in parsing a Codex file
@@ -15,5 +13,5 @@ public abstract class Rule
 
     public abstract bool Matches(Stack<Index> indexStack);
 
-    public abstract ParseResult Parse(Stack<Index> indexStack);
+    // public abstract ParseResult Parse(Stack<Index> indexStack);
 }

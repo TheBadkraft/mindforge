@@ -1,5 +1,5 @@
 
-namespace MindForge.Library;
+namespace MindForge.Codificer.Lexicon.Grammar;
 
 public class RuleSet
 {
