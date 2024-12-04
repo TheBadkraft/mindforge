@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <RootNamespace>MindForge</RootNamespace>
+    <RootNamespace>MindForge.Codificer</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

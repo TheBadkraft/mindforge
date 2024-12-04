@@ -3,14 +3,49 @@
 	"tasks": [
 		{
 			"type": "dotnet",
-			"task": "build ${workspaceFolder}/Codificer/mindforge.csproj",
-			"file": "${workspaceFolder}/Codificer/mindforge.csproj",
+			"task": "build ${workspaceFolder}/Codificer/mindforge.codificer.csproj",
+			"file": "${workspaceFolder}/Codificer/mindforge.codificer.csproj",
 			"group": {
 				"kind": "build",
 				"isDefault": true
 			},
 			"problemMatcher": [],
 			"label": "build codificer"
-		}
+		},
+		{
+			"type": "dotnet",
+			"task": "build ${workspaceFolder}/Compiler/mindforge.compiler.csproj",
+			"file": "${workspaceFolder}/Compiler/mindforge.compiler.csproj",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": [],
+			"label": "build compiler"
+		},
+		{
+			"type": "shell",
+			"label": "build tests (codificer) ",
+			"command": "dotnet",
+			"args": [
+				"build",
+				"${workspaceFolder}/.test/Codificer.Testing/codificer.testing.csproj"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"type": "dotnet",
+			"task": "build ${workspaceFolder}/mindforge.sln",
+			"file": "${workspaceFolder}/mindforge.sln",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": [],
+			"label": "build mindforge"
+		},
 	]
 }
