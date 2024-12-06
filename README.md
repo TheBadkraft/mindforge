@@ -8,8 +8,8 @@ However, the Codex was scattered during the turbulent times of Camelot, its page
 The **MindForge** was thus established as a modern-day workshop where developers work to recover, interpret, and complete the Codex of Sigma. Their mission is to forge languages that are not only efficient and expressive but also carry the legacy and wisdom of the past into the future.
 
 
-**Knowledge Base**
-Section 1: [TProject Overview and Fundamental Concepts](info/knowledge.base/s1.overview.md)
-Section 2: [Toolchain Overview and Assembly Structure](info/knowledge.base/s2.toolchain.md)
-Section 3: [Codex Documentation](info/knowldge.base/s1.codex.md)
-[Appendices](info/knowledge.base/s4.appendices.md)
+**Knowledge Base**  
+Section 1: [TProject Overview and Fundamental Concepts](info/knowledge.base/s1.overview.md)  
+Section 2: [Toolchain Overview and Assembly Structure](info/knowledge.base/s2.toolchain.md)  
+Section 3: [Codex Documentation](info/knowldge.base/s1.codex.md)  
+[Appendices](info/knowledge.base/s4.appendices.md)  
