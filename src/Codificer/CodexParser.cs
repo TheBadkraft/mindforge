@@ -1,12 +1,11 @@
 using MindForge.Codificer.Lexicon.Grammar;
-using MindForge.Codificer.Lexicon.Analysis;
 using Index = MindForge.Codificer.Lexicon.Analysis.Index;
 
 namespace MindForge.Codificer;
 
 /// <summary>
-/// Parses language definitions from a Codex file creating a 
-/// structured set of rules.
+/// Parses language definitions from a Codex file creating a structured set of rules.
+/// This class uses the `unsafe` keyword to allow pointer manipulation for performance reasons.
 /// </summary>
 public unsafe class CodexParser
 {
