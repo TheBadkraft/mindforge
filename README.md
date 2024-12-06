@@ -11,5 +11,5 @@ The **MindForge** was thus established as a modern-day workshop where developers
 **Knowledge Base**  
 Section 1: [TProject Overview and Fundamental Concepts](info/knowledge.base/s1.overview.md)  
 Section 2: [Toolchain Overview and Assembly Structure](info/knowledge.base/s2.toolchain.md)  
-Section 3: [Codex Documentation](nfo/knowledge.base/s3.codex.md)  
+Section 3: [Codex Documentation](info/knowledge.base/s3.codex.md)  
 [Appendices](info/knowledge.base/s4.appendices.md)  
