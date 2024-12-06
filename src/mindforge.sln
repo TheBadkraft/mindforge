@@ -3,18 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mindforge.domain", "Domain\mindforge.domain\mindforge.domain.csproj", "{86388E37-C4B7-4ED8-9FBF-2E36691A1DDE}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mindforge.codificer", "Codificer\mindforge.codificer.csproj", "{DFB9A5CF-BCAE-4A75-81B8-C0025AAE04B5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mindforge.compiler", "Compiler\mindforge.compiler.csproj", "{4C8F16EA-8D13-4244-9E27-005E41D12C68}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".test", ".test", "{D1880E22-0A08-58BE-DC49-6C04D09DB70B}"
+	ProjectSection(SolutionItems) = preProject
+		.test\.data\test1.codex = .test\.data\test1.codex
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "codificer.testing", ".test\Codificer.Testing\codificer.testing.csproj", "{290FCB15-BCEC-4DD1-BE64-0407661372AF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".data", ".data", "{718B8C59-534E-CA27-E3EF-679C6F54DB28}"
-	ProjectSection(SolutionItems) = preProject
-		test1.codex = test1.codex
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +24,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{86388E37-C4B7-4ED8-9FBF-2E36691A1DDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86388E37-C4B7-4ED8-9FBF-2E36691A1DDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86388E37-C4B7-4ED8-9FBF-2E36691A1DDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86388E37-C4B7-4ED8-9FBF-2E36691A1DDE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DFB9A5CF-BCAE-4A75-81B8-C0025AAE04B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DFB9A5CF-BCAE-4A75-81B8-C0025AAE04B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFB9A5CF-BCAE-4A75-81B8-C0025AAE04B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
