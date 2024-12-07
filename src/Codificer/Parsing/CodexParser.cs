@@ -1,4 +1,6 @@
 using MindForge.Codificer.Lexicon.Grammar;
+using MindForge.Domain.Core;
+using MindForge.Domain.Utilities;
 using Index = MindForge.Codificer.Lexicon.Analysis.Index;
 
 namespace MindForge.Codificer;
@@ -7,8 +9,14 @@ namespace MindForge.Codificer;
 /// Parses language definitions from a Codex file creating a structured set of rules.
 /// This class uses the `unsafe` keyword to allow pointer manipulation for performance reasons.
 /// </summary>
-public unsafe class CodexParser
+public unsafe class CodexParser : StateMachine<ParserState>
 {
+    private static Configuration Configuration => Configuration.Initialize();
+
+    public CodexParser() : base(ParserState.Idle, new ParserStateHandler(Configuration.DefaultLogger))
+    {
+    }
+
     private Stack<Index> indexStack = new();
 
     /// <summary>
