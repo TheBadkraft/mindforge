@@ -6,16 +6,15 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <RootNamespace>MindForge.Codificer</RootNamespace>
+    <RootNamespace>MindForge.TestRunner</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Domain/mindforge.domain/mindforge.domain.csproj" />
-  </ItemGroup>
+    <Using Include="System.IO" />
+    <Using Include="System.Text" />
+    <Using Include="System.Diagnostics" />
 
-  <ItemGroup>
-    <Using Include="System.Reflection" />
-    
+    <Using Include="MindForge.TestRunner.Logging" />
   </ItemGroup>
 
 </Project>

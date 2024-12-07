@@ -9,14 +9,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mindforge.codificer", "Codi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mindforge.compiler", "Compiler\mindforge.compiler.csproj", "{4C8F16EA-8D13-4244-9E27-005E41D12C68}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".test", ".test", "{D1880E22-0A08-58BE-DC49-6C04D09DB70B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".data", ".data", "{718B8C59-534E-CA27-E3EF-679C6F54DB28}"
 	ProjectSection(SolutionItems) = preProject
-		.test\.data\test1.codex = .test\.data\test1.codex
+		test1.codex = test1.codex
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".test", ".test", "{D1880E22-0A08-58BE-DC49-6C04D09DB70B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "codificer.testing", ".test\Codificer.Testing\codificer.testing.csproj", "{290FCB15-BCEC-4DD1-BE64-0407661372AF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".data", ".data", "{718B8C59-534E-CA27-E3EF-679C6F54DB28}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mindforge.testrunner", ".test\MindForge.TestRunner\mindforge.testrunner.csproj", "{BD078D85-AB72-44A7-9976-87BB21E9EBC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,12 +42,17 @@ Global
 		{290FCB15-BCEC-4DD1-BE64-0407661372AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{290FCB15-BCEC-4DD1-BE64-0407661372AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{290FCB15-BCEC-4DD1-BE64-0407661372AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD078D85-AB72-44A7-9976-87BB21E9EBC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD078D85-AB72-44A7-9976-87BB21E9EBC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD078D85-AB72-44A7-9976-87BB21E9EBC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD078D85-AB72-44A7-9976-87BB21E9EBC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{290FCB15-BCEC-4DD1-BE64-0407661372AF} = {D1880E22-0A08-58BE-DC49-6C04D09DB70B}
 		{718B8C59-534E-CA27-E3EF-679C6F54DB28} = {D1880E22-0A08-58BE-DC49-6C04D09DB70B}
+		{290FCB15-BCEC-4DD1-BE64-0407661372AF} = {D1880E22-0A08-58BE-DC49-6C04D09DB70B}
+		{BD078D85-AB72-44A7-9976-87BB21E9EBC6} = {D1880E22-0A08-58BE-DC49-6C04D09DB70B}
 	EndGlobalSection
 EndGlobal

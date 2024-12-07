@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Core/" />
     <Folder Include="Errors/" />
     <Folder Include="Rules/" />
   </ItemGroup>

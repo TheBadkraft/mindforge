@@ -1,0 +1,5 @@
+Welcome to MindForge.TestRunner!
+This is a debug message.
+[17:27:29.683] [INFO   ]: This is a logging message.
+[17:27:29.779] [WARNING]: This is a warning message.
+[17:27:29.787] [FATAL  ]: This is a fatal message.
