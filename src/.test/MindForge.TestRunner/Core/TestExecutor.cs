@@ -1,3 +1,4 @@
+
 namespace MindForge.TestRunner.Core;
 
 /// <summary>
@@ -7,11 +8,15 @@ namespace MindForge.TestRunner.Core;
 /// <exception cref="NotImplementedException">Thrown to indicate that the method is not yet implemented.</exception>
 public class TestExecutor
 {
-
     private ILogger Logger { get; init; }
 
     public TestExecutor(ILogger logger)
     {
         Logger = logger;
+    }
+
+    internal void ExecuteTests()
+    {
+        Logger.Log(DebugLevel.Default, "Begin Test Execution ...");
     }
 }

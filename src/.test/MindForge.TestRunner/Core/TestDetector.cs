@@ -9,10 +9,20 @@ namespace MindForge.TestRunner.Core;
 /// <exception cref="NotImplementedException">Thrown to indicate that the method or operation is not implemented.</exception>
 public class TestDetector
 {
-    private ILogger Logger { get; init; }
+    private const string CSPROJ = "csproj";
+    private const string PATTERN = $"*.{CSPROJ}";
 
-    public TestDetector(ILogger logger)
+    private ILogger Logger { get; init; }
+    private RunnerConfig Config { get; init; }
+
+    public TestDetector(ILogger logger, RunnerConfig config)
     {
         Logger = logger;
+        Config = config;
+    }
+
+    internal void DiscoverTests()
+    {
+        Logger.Log(DebugLevel.Default, "Begin Test Discovery ...");
     }
 }

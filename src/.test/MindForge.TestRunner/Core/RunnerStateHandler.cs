@@ -1,65 +1,81 @@
-using MindForge.TestRunner.Logging;
 
-namespace MindForge.TestRunner.Core;
+using MindForge.TestRunner.Core;
 
 /// <summary>
-/// Abstract base class for handling state transitions in a state machine.
+/// Handles the state transitions for the test director in the test runner.
 /// </summary>
-/// <typeparam name="TState">The type of the state, which must be a struct and implement IConvertible, IComparable, and IFormattable.</typeparam>
-public abstract class RunnerStateHandler<TState> where TState : struct, IConvertible, IComparable, IFormattable
+/// <remarks>
+/// This class is responsible for determining if a transition between states is allowed.
+/// </remarks>
+/// <param name="logger">The logger instance used for logging information.</param>
+internal class RunnerStateHandler : StateHandler<RunnerState>
 {
-    /// <summary>
-    /// Logger instance for logging state transitions.
-    /// </summary>
-    protected ILogger Logger;
-
-    /// <summary>
-    /// Gets the parent state machine associated with this handler.
-    /// </summary>
-    public RunnerStateMachine<TState> Parent { get; private set; }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="StateHandler{TState}"/> class.
-    /// </summary>
-    /// <param name="logger">The logger instance to use for logging.</param>
-    /// <exception cref="ArgumentNullException">Thrown when the logger is null.</exception>
-    protected RunnerStateHandler(ILogger logger)
+    public RunnerStateHandler(ILogger logger) : base(RunnerState.Idle, logger)
     {
-        Logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     /// <summary>
-    /// Determines whether a transition from the current state to a new state is allowed.
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="currentState">The current state.</param>
-    /// <param name="newState">The new state to transition to.</param>
-    /// <returns>True if the transition is allowed; otherwise, false.</returns>
-    public abstract bool CanTransitionTo(TState currentState, TState newState);
-
-    /// <summary>
-    /// Called before a state transition occurs.
-    /// </summary>
-    /// <param name="oldState">The state being transitioned from.</param>
-    /// <param name="newState">The state being transitioned to.</param>
-    public virtual void OnBeforeTransition(TState oldState, TState newState) { }
-
-    /// <summary>
-    /// Called after a state transition occurs.
-    /// </summary>
-    /// <param name="newState">The state that has been transitioned to.</param>
-    public virtual void OnAfterTransition(TState newState)
+    public override bool CanTransitionTo(RunnerState newState)
     {
-        Logger?.Log(DebugLevel.Default, $"State transitioned to {newState}");
+        switch (CurrentState)
+        {
+            case RunnerState.Idle when newState == RunnerState.Ready:
+                return true;
+            case RunnerState.Ready when newState == RunnerState.Discovery:
+                return true;
+            case RunnerState.Discovery when newState == RunnerState.Running:
+                return true;
+            case RunnerState.Running when newState == RunnerState.Auditing:
+                return true;
+            case RunnerState.Auditing when newState == RunnerState.Complete:
+                return true;
+            case RunnerState.Complete when newState == RunnerState.Exit:
+                return true;
+            default:
+                return false;
+        }
     }
-
     /// <summary>
-    /// Sets the parent state machine for this handler.
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="stateMachine">The state machine to set as the parent.</param>
-    /// <exception cref="ArgumentNullException">Thrown when the state machine is null.</exception>
-    public void SetParentStateMachine(RunnerStateMachine<TState> stateMachine)
+    public override void OnAfterTransition(RunnerState newState)
     {
-        if (stateMachine == null) throw new ArgumentNullException(nameof(stateMachine));
-        Parent = stateMachine;
+        switch (newState)
+        {
+            case RunnerState.Discovery:
+
+
+                break;
+            case RunnerState.Running:
+
+
+                break;
+            case RunnerState.Auditing:
+
+
+                break;
+                // ... other cases
+        }
+    }
+    /// <summary>
+    /// Gets the next state in the state machine.
+    /// </summary>
+    /// <returns>The next state in the state machine.</returns>
+    public RunnerState NextState()
+    {
+        // Logic to determine the next state based on the current state
+        // This could be simplified if the state handler manages all transitions
+        switch (GetCurrentState())
+        {
+            case RunnerState.Idle: return RunnerState.Ready;
+            case RunnerState.Ready: return RunnerState.Discovery;
+            case RunnerState.Discovery: return RunnerState.Running;
+            case RunnerState.Running: return RunnerState.Auditing;
+            case RunnerState.Auditing: return RunnerState.Complete;
+            case RunnerState.Complete: return RunnerState.Exit;
+            default: return RunnerState.Error;
+        }
     }
 }

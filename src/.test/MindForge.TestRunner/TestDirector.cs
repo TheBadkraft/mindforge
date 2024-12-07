@@ -1,11 +1,12 @@
 
+using System.Text.Json;
 using MindForge.TestRunner.Core;
 
 /// <summary>
 /// The <c>TestDirector</c> class orchestrates the test execution process by managing the state machine
 /// and coordinating the test detection, execution, and auditing phases.
 /// </summary>
-public class TestDirector : RunnerStateMachine<RunnerState>, IDisposable
+public class TestDirector : StateMachine<RunnerState>, IDisposable
 {
     private const string JSON_CONFIG = "runner-config.json";
     private readonly TestDetector detector;
@@ -14,21 +15,39 @@ public class TestDirector : RunnerStateMachine<RunnerState>, IDisposable
     private IEnumerable<Type> containers;
     private RunnerConfig config;
 
+    private RunnerStateHandler Handler => (RunnerStateHandler)StateHandler;
+
+    /// <summary>
+    /// Gets the logger instance for logging activities.
+    /// </summary>
+    private ILogger Logger { get; init; }
+
+    /// <summary>
+    /// Indicates whether the test director is ready to begin detection,
+    /// execution, and auditing test containers, tests, and results.
+    /// </summary>
+    public bool IsReady => StateHandler.GetCurrentState() == RunnerState.Ready;
     /// <summary>
     /// Indicates whether the test run is complete.
     /// </summary>
-    public bool IsDone => CurrentState == RunnerState.Complete;
+    public bool IsDone => StateHandler.GetCurrentState() == RunnerState.Exit;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TestDirector"/> class.
     /// </summary>
     /// <param name="logger">The logger instance for logging activities.</param>
-    public TestDirector(ILogger logger) : base(RunnerState.Idle, new TestDirectorStateHandler(logger))
+    public TestDirector(ILogger logger) : base(new RunnerStateHandler(logger))
     {
-        LoadConfiguration();
-        detector = new TestDetector(logger);
-        executor = new TestExecutor(logger);
-        auditor = new TestAuditor(logger);
+        Logger = logger;
+
+        if (!LoadConfiguration())
+        {
+            return;
+        }
+
+        detector = new TestDetector(Logger, config);
+        executor = new TestExecutor(Logger);
+        auditor = new TestAuditor(Logger);
 
         ChangeState(RunnerState.Ready);
     }
@@ -39,7 +58,10 @@ public class TestDirector : RunnerStateMachine<RunnerState>, IDisposable
     /// <param name="newState">The new state to transition to.</param>
     public void ChangeState(RunnerState newState)
     {
-        TransitionTo(newState);
+        if (!TransitionTo(newState, out string message))
+        {
+            Logger.Log(DebugLevel.Error, message);
+        }
     }
 
     /// <summary>
@@ -48,49 +70,112 @@ public class TestDirector : RunnerStateMachine<RunnerState>, IDisposable
     public void Run()
     {
         //  process the state machine
+        if (!IsReady)
+        {
+            //  log error status ... possibly fatal if we don't know why
+            Logger.Log(DebugLevel.Error, "TestRunner.Director is not ready to run.");
+            return;
+        }
+        while (!IsDone)
+        {
+            // Instead of manually handling state transitions here, we let the state machine and handler manage it
+            if (!TransitionTo(Handler.NextState(), out string message))
+            {
+                Logger.Log(DebugLevel.Error, message);
+                break;
+            }
+        }
+    }
+
+    protected override void OnStateChanged(RunnerState newState)
+    {
+        switch (newState)
+        {
+            case RunnerState.Ready:
+                Logger.Log(DebugLevel.Default, "TestRunner.Director is ready to run.");
+
+                break;
+            case RunnerState.Discovery:
+                DiscoverTests();
+
+                break;
+            case RunnerState.Running:
+                ExecutTests();
+
+                break;
+            case RunnerState.Complete:
+                AuditResults();
+
+                break;
+            case RunnerState.Exit:
+                //  save current log to ./test_logs/*.log
+                Logger.Shutdown();
+
+                break;
+            default:
+                break;
+        }
     }
 
     /// <summary>
     /// Loads the configuration from the JSON file.
     /// </summary>
-    private void LoadConfiguration()
+    private bool LoadConfiguration()
     {
-        //  load JSON configuration
-    }
+        try
+        {
+            //  load JSON configuration
+            string json = File.ReadAllText(JSON_CONFIG);
+            config = JsonSerializer.Deserialize<RunnerConfig>(json);
+            if (config == null || !(config.Paths?.Any()).Value)
+            {
+                var message = "Invalid configuration file.";
+                Logger.Log(DebugLevel.Error, message);
+                return false;
+            }
 
+        }
+        catch (Exception ex)
+        {
+            var message = "Error loading configuration file.";
+            message = $"{message} {ex.Message}";
+
+            Logger.Log(DebugLevel.Error, message);
+            return false;
+        }
+
+        return true;
+    }
     /// <summary>
     /// Discovers the tests and populates the containers.
     /// </summary>
     private void DiscoverTests()
     {
         //  test discovery: pupulate containers
-        //  detector.DiscoverTests();
+        detector.DiscoverTests();
     }
-
     /// <summary>
     /// Executes the tests and catalogs the test results.
     /// </summary>
     private void ExecutTests()
     {
         //  test execution: catalog test results
-        //  executor.ExecuteTests();
+        executor.ExecuteTests();
         //  log each test result
     }
-
     /// <summary>
     /// Audits the test results and generates a results log.
     /// </summary>
     private void AuditResults()
     {
         //  audit results: generate results log
-        //  auditor.AuditResults();
+        auditor.AuditResults();
     }
-
     /// <summary>
     /// Releases all resources used by the <see cref="TestDirector"/> class.
     /// </summary>
     public void Dispose()
     {
-        throw new NotImplementedException();
+        //  release resources ... (???)
     }
 }

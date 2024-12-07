@@ -1,3 +1,4 @@
+
 namespace MindForge.TestRunner.Core;
 
 /// <summary>
@@ -7,11 +8,15 @@ namespace MindForge.TestRunner.Core;
 /// <exception cref="NotImplementedException">Thrown to indicate that the constructor is not yet implemented.</exception>
 public class TestAuditor
 {
-
     private ILogger Logger { get; init; }
 
     public TestAuditor(ILogger logger)
     {
         Logger = logger;
+    }
+
+    internal void AuditResults()
+    {
+        Logger.Log(DebugLevel.Default, "Begin Auditing Results ...");
     }
 }

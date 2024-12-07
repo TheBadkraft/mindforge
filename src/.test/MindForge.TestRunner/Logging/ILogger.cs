@@ -11,5 +11,9 @@ namespace MindForge.TestRunner.Logging
         /// <param name="debugLevel">The level of debugging information to log.</param>
         /// <param name="message">The message to log.</param>
         void Log(DebugLevel debugLevel, string message);
+        /// <summary>
+        /// Shuts down the logger and releases any resources used.
+        /// </summary>
+        void Shutdown();
     }
 }
