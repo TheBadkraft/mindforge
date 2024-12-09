@@ -18,15 +18,14 @@ Integration of logging throughout the execution process helps in tracking and de
 ### **Next On Enhancements:**  
 - #### **Test Reporting: _`TestAuditor`_**  
 While TestContext captures test outcomes, there's no explicit reporting mechanism. Implementing a separate reporting module or extending TestExecutor for this purpose would be beneficial.
-
+- #### **Performance Considerations:**  
+Reflection and dynamic delegate creation, while flexible, can be performance-intensive for large test suites. Caching results of reflection operations might help in repeated runs.
 
 ### **Areas for Improvement:**  
 - #### **Error Handling and Resilience:**  
 While there's some error handling, more comprehensive exception management, particularly around state transitions or test executions, could enhance robustness.
 - #### **Parallel Test Execution:**  
 The current setup is not designed for parallel test execution. To support this, you'd need to manage TestContext for thread safety or implement a way to create unique contexts for each test.
-- #### **Performance Considerations:**  
-Reflection and dynamic delegate creation, while flexible, can be performance-intensive for large test suites. Caching results of reflection operations might help in repeated runs.
 - #### **Extensibility:**  
 Though modular, adding new test types or behaviors might still require modifications to core classes. Consider patterns like the Strategy pattern for more pluggable test behaviors.
 - #### **Configuration and Flexibility:**  
