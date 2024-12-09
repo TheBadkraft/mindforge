@@ -48,7 +48,11 @@ public class TestExecutor
         TestContext = new TestContext { Logger = logger };
     }
 
-    internal void ExecuteTests(IEnumerable<ProjectInfo> projects)
+    /// <summary>
+    /// Executes the tests for the specified projects.
+    /// </summary>
+    /// <param name="projects">The projects to execute tests for.</param>
+    internal void ExecuteTests(IEnumerable<ProjectInfo> projects, out IEnumerable<TestCaseResult> testResults)
     {
         Logger.Log(DebugLevel.Default, "Begin Test Execution ...");
 
@@ -64,10 +68,10 @@ public class TestExecutor
 
                 containerInfo.InitializeContainer(TestContext); // Initialize container setup, passing context if needed
 
-                foreach (var testMethod in containerInfo.TestCases)
+                foreach (var testInfo in containerInfo.Tests)
                 {
-                    var name = testMethod.Key;
-                    var test = testMethod.Value;
+                    var name = testInfo.Key;
+                    var test = testInfo.Value;
                     containerInfo.CurrentTest = name;
                     RunTest(containerInfo, name, test);
                 }
@@ -75,23 +79,31 @@ public class TestExecutor
                 containerInfo.CleanUpContainer(); // Clean up container, passing context if needed
             }
         }
+
+        testResults = projects.SelectMany(p => p.TestContainers.SelectMany(tc => tc.Results));
+        Logger.Log(DebugLevel.Default, "... Test Execution Complete");
     }
 
     private void RunTest(TestContainerInfo containerInfo, string testName, TestCase test)
     {
+        if (!containerInfo.TryGetResultInfo(testName, out var testResult))
+        {
+            Logger.Log(DebugLevel.Warning, $"Test {testName} not found in {containerInfo.Name}.");
+            return;
+        }
+
+        testResult.StartTest();
+
         try
         {
-            TestContext.StartTest();
-
             containerInfo.TestSetUp(); // Will instantiate the container if needed
             test(); // Execute the test method
-
-            TestContext.EndTest(true);
-            Logger.Log(DebugLevel.Default, $"Test {testName} in {containerInfo.Name} passed.");
+            testResult.EndTest(TestResult.Pass);
+            Logger.Log(DebugLevel.Default, $"Test {testName} in {containerInfo.Name} {testResult.Outcome}.");
         }
         catch (Exception ex)
         {
-            TestContext.EndTest(false, ex.InnerException?.Message ?? ex.Message);
+            testResult.EndTest(TestResult.Fail, ex.Message);
             Logger.Log(DebugLevel.Error, $"Test {testName} in {containerInfo.Name} failed: {TestContext.ErrorMessage}");
         }
         finally

@@ -37,13 +37,11 @@ public class Logger : TraceListener, ILogger
     /// </summary>
     /// <param name="message"></param>
     public override void Write(string message) => writer.Write(message);
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="message"></param>
     public override void WriteLine(string message) => writer.WriteLine(message);
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -53,6 +51,10 @@ public class Logger : TraceListener, ILogger
     {
         switch (debugLevel)
         {
+            case DebugLevel.Verbose:
+                WriteLine(LogFormat.Debug(message));
+
+                break;
             case DebugLevel.Default:
                 WriteLine(LogFormat.Info(message));
 
@@ -67,6 +69,10 @@ public class Logger : TraceListener, ILogger
                 break;
             case DebugLevel.Fatal:
                 WriteLine(LogFormat.Fatal(message));
+
+                break;
+            case DebugLevel.Test:
+                WriteLine(LogFormat.Test(message));
 
                 break;
         }

@@ -14,9 +14,9 @@ public class TestDirector : StateMachine<RunnerState>, IDisposable
     private readonly TestAuditor auditor;
     private IEnumerable<ProjectInfo> projects;
     private RunnerConfig config;
+    private IEnumerable<TestCaseResult> TestResults;
 
     private RunnerStateHandler Handler => (RunnerStateHandler)StateHandler;
-
     /// <summary>
     /// Gets the logger instance for logging activities.
     /// </summary>
@@ -169,7 +169,7 @@ public class TestDirector : StateMachine<RunnerState>, IDisposable
     private void ExecutTests()
     {
         //  test execution: catalog test results
-        executor.ExecuteTests(projects);
+        executor.ExecuteTests(projects, out TestResults);
         //  log each test result
     }
     /// <summary>
@@ -178,7 +178,7 @@ public class TestDirector : StateMachine<RunnerState>, IDisposable
     private void AuditResults()
     {
         //  audit results: generate results log
-        auditor.AuditResults();
+        auditor.AuditResults(TestResults);
     }
     /// <summary>
     /// Releases all resources used by the <see cref="TestDirector"/> class.
