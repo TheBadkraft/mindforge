@@ -1,0 +1,12 @@
+Welcome to MindForge.TestRunner!
+[20:25:09.111] [INFO   ]: TestRunner.Director is ready to run.
+[20:25:09.179] [INFO   ]: Begin Test Discovery ...
+[20:25:09.341] [INFO   ]: Found 1 test containers in MindForge.TestRunner.Testing
+[20:25:09.342] [INFO   ]: TestContainer: RunnerDiscoveryTests
+[20:25:09.362] [INFO   ]: Found 2 test containers in codificer.testing
+[20:25:09.362] [INFO   ]: TestContainer: CodexParserTests
+[20:25:09.362] [INFO   ]: TestContainer: IndexTests
+[20:25:09.364] [INFO   ]: Begin Test Execution ...
+[20:25:09.418] [ERROR  ]: Test DiscoverTests in RunnerDiscoveryTests failed: Object reference not set to an instance of an object.
+[20:25:09.438] [INFO   ]: Test InstantiateIndex in IndexTests passed.
+[20:25:09.439] [INFO   ]: Begin Auditing Results ...

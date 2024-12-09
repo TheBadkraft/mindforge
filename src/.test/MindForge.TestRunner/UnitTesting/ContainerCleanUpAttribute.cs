@@ -8,7 +8,7 @@ namespace MindForge.TestRunner.UnitTesting;
 /// This attribute should be placed on a static method that accepts no parameters.
 /// </remarks>
 [AttributeUsage(AttributeTargets.Method)]
-public class ContainerCleanupAttribute : Attribute
+public class ContainerCleanUpAttribute : Attribute
 {
     //  cleanup the container, must be placed on a static method accepting no parameters
 }
