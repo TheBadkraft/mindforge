@@ -42,7 +42,7 @@ public class ProjectInfo
     /// Determines whether the project has tests.
     /// </summary>
     /// <returns>TRUE if the project has tests; otherwise, FALSE.</returns>
-    internal bool HasTests() => TestContainers.Any(c => c.TestCases.Any());
+    internal bool HasTests() => TestContainers.Any(c => c.Tests.Any());
     /// <summary>
     /// Determines whether the project info is valid.
     /// </summary>
