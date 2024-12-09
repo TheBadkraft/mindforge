@@ -12,7 +12,7 @@ public class TestDirector : StateMachine<RunnerState>, IDisposable
     private readonly TestDetector detector;
     private readonly TestExecutor executor;
     private readonly TestAuditor auditor;
-    private IEnumerable<Type> containers;
+    private IEnumerable<ProjectInfo> projects;
     private RunnerConfig config;
 
     private RunnerStateHandler Handler => (RunnerStateHandler)StateHandler;
@@ -44,6 +44,7 @@ public class TestDirector : StateMachine<RunnerState>, IDisposable
         {
             return;
         }
+        Assert.Instance.Logger = logger as Logger;
 
         detector = new TestDetector(Logger, config);
         executor = new TestExecutor(Logger);
@@ -51,7 +52,6 @@ public class TestDirector : StateMachine<RunnerState>, IDisposable
 
         ChangeState(RunnerState.Ready);
     }
-
     /// <summary>
     /// Changes the current state of the test director to the specified new state.
     /// </summary>
@@ -63,7 +63,6 @@ public class TestDirector : StateMachine<RunnerState>, IDisposable
             Logger.Log(DebugLevel.Error, message);
         }
     }
-
     /// <summary>
     /// Starts the test execution process by processing the state machine.
     /// </summary>
@@ -152,7 +151,17 @@ public class TestDirector : StateMachine<RunnerState>, IDisposable
     private void DiscoverTests()
     {
         //  test discovery: pupulate containers
-        detector.DiscoverTests();
+        if (!detector.DiscoverTests(out projects))
+        {
+            //  log error status ... possibly fatal if we don't know why
+            Logger.Log(DebugLevel.Error, "Test discovery failed.");
+            if (!projects.Any())
+            {
+                ChangeState(RunnerState.Exit);
+            }
+
+            //  we have some test projects to run
+        }
     }
     /// <summary>
     /// Executes the tests and catalogs the test results.
@@ -160,7 +169,7 @@ public class TestDirector : StateMachine<RunnerState>, IDisposable
     private void ExecutTests()
     {
         //  test execution: catalog test results
-        executor.ExecuteTests();
+        executor.ExecuteTests(projects);
         //  log each test result
     }
     /// <summary>

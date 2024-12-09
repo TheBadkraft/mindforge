@@ -1,0 +1,10 @@
+Welcome to MindForge.TestRunner!
+[19:49:28.289] [INFO   ]: TestRunner.Director is ready to run.
+[19:49:28.407] [INFO   ]: Begin Test Discovery ...
+[19:49:31.450] [INFO   ]: Found 1 test containers in MindForge.TestRunner.Testing
+[19:49:31.452] [INFO   ]: TestContainer: RunnerDiscoveryTests
+[19:49:33.030] [INFO   ]: Found 2 test containers in codificer.testing
+[19:49:33.031] [INFO   ]: TestContainer: CodexParserTests
+[19:49:33.032] [INFO   ]: TestContainer: IndexTests
+[19:49:34.162] [INFO   ]: Begin Test Execution ...
+[19:49:34.166] [INFO   ]: Begin Auditing Results ...

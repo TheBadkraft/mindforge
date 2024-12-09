@@ -12,9 +12,12 @@
   <ItemGroup>
     <Using Include="System.IO" />
     <Using Include="System.Text" />
+    <Using Include="System.Xml.Linq" />
+    <Using Include="System.Reflection" />
     <Using Include="System.Diagnostics" />
-
+    
     <Using Include="MindForge.TestRunner.Logging" />
+    <Using Include="MindForge.TestRunner.UnitTesting" />
   </ItemGroup>
 
 </Project>
