@@ -1,4 +1,10 @@
+using System.Runtime.CompilerServices;
+
 using MindForge.Domain.Logging;
+
+[assembly: InternalsVisibleTo("mindforge.codificer")]
+[assembly: InternalsVisibleTo("Codificer.Testing")]
+
 
 namespace MindForge.Domain.Core;
 
@@ -7,10 +13,14 @@ namespace MindForge.Domain.Core;
 /// </summary>
 public class Configuration
 {
-    private static readonly Lazy<Configuration> instance = new Lazy<Configuration>(() => new Configuration());
+    private static readonly Lazy<Configuration> instance = new Lazy<Configuration>(() => new Configuration(new LogSubject()));
 
-    private static Configuration Instance => instance.Value;
+    internal static Configuration Instance => instance.Value;
 
+    /// <summary>
+    /// Gets the log subject observer for the application.
+    /// </summary>
+    public LogSubject LogSubject { get; private set; }
     /// <summary>
     /// Gets or sets the minimum log level for logging.
     /// </summary>
@@ -20,11 +30,16 @@ public class Configuration
     /// Gets or sets a value indicating whether the application is in debug mode.
     /// </summary>
     public bool IsDebugMode { get; set; }
-
     /// <summary>
     /// Gets or sets the default logger for the application.
     /// </summary>
     public ILogger DefaultLogger { get; set; }
+
+
+    private Configuration(LogSubject logSubject)
+    {
+        LogSubject = logSubject;
+    }
 
     /// <summary>
     /// Initialize the configuration settings.

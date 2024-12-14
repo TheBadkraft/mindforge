@@ -1,2 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, MindForge!");
+
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Codificer.Testing")]
+
+Console.WriteLine("Launching MindForge Codificer: The Codex of Sigma");
+
+var config = Configuration.Initialize();

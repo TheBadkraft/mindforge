@@ -1,17 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <RootNamespace>Codificer.Testing</RootNamespace>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="../../Codificer/mindforge.codificer.csproj" />
-    <ProjectReference Include="../MindForge.TestRunner/mindforge.testrunner.csproj" />
-
+    <ProjectReference Include="../../Domain/mindforge.domain.csproj" />
+    
+    <Reference Include="../../../lib/FakeItEasy.dll" />
+    <Reference Include="../../../lib/mindforge.testrunner.dll" />
+    
+    <Using Include="FakeItEasy" />
     <Using Include="System.Diagnostics" />
     <Using Include="MindForge.TestRunner.UnitTesting" />
     <Using Include="MindForge.Codificer" />

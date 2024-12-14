@@ -5,13 +5,13 @@
       "name": "forge.net",
       "type": "coreclr",
       "request": "launch",
-      "program": "${workspaceFolder}/sigma.c/bin/Debug/netcoreapp3.1/sigma.c.dll"
+      "program": "${workspaceFolder}/Codificer/bin/Debug/net8.0/mindforge"
     },
     {
       "name": "runner.net",
       "type": "coreclr",
       "request": "launch",
-      "program": "${workspaceFolder}/.test/MindForge.TestRunner/bin/Debug/net8.0/mindforge.testrunner"
+      "program": "${workspaceFolder}/../lib/mindforge.testrunner"
     },
   ]
 }

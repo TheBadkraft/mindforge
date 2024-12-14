@@ -1,5 +1,6 @@
 using MindForge.Codificer.Lexicon.Grammar;
 using MindForge.Domain.Core;
+using MindForge.Domain.Logging;
 using MindForge.Domain.Utilities;
 using Index = MindForge.Codificer.Lexicon.Analysis.Index;
 
@@ -11,10 +12,15 @@ namespace MindForge.Codificer;
 /// </summary>
 public unsafe class CodexParser : StateMachine<ParserState>
 {
-    private static Configuration Configuration => Configuration.Initialize();
+    private static Configuration Configuration => Configuration.Instance;
 
-    public CodexParser() : base(ParserState.Idle, new ParserStateHandler(Configuration.DefaultLogger))
+    private LogSubject LoggerObserver => Configuration.LogSubject;
+    private IErrorPublisher ErrorPublisher { get; init; }
+
+    public CodexParser(IErrorPublisher errorPublisher)
+        : base(ParserState.Idle, new ParserStateHandler(Configuration.DefaultLogger))
     {
+        ErrorPublisher = errorPublisher;
     }
 
     private Stack<Index> indexStack = new();
